@@ -1,0 +1,17 @@
+var aws = require('aws-sdk');
+var ses = new aws.SES({region: "ap-south-1"});
+exports.handler = async function (event){
+    var params = {
+        Destination: {
+            ToAddresses: ["vishal.tyadav2709@gmail.com"],
+        },
+        Message: {
+            Body: {
+                Text: { Data: "This is the notification that object is added to s3 bucket"},
+            },
+            Subject: {Data: "Notification"},
+        },
+        Source: "vishal.tyadav2709@gmail.com",
+    };
+    return ses.sendEmail(params).promise()
+};
